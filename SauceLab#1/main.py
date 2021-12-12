@@ -1,9 +1,8 @@
-import unittest
 import time
+import unittest
 
-import src.page as page
-
-import tests.test_login as logintest
+from tests.test_login import User
+import tests.test_cart as test_cart
 
 #import Driver
 from selenium import webdriver
@@ -23,18 +22,43 @@ class SauceLab(unittest.TestCase):
 
     def test_lock_login(self):
         #Test lock user
-        logintest.test_block_user(self.driver)
+        User(self.driver).block_user()
 
     def test_standard_login(self):
         #Test normal user
-        logintest.standard_user(self.driver)
+        User(self.driver).standard_user()
 
     def test_glitch_login(self):
         #Test glitch user
-        logintest.glitch_user(self.driver)
+        User(self.driver).glitch_user()
+
+    def test_cart_normal(self):
+        # tests Item Added To Cart are present in cart page with normal user
+        user = "standard_user"
+        password = "secret_sauce"
+        test_cart.test_cart(self.driver, user, password)
+
+    def test_cart_glitch(self):
+        # tests Item Added To Cart are present in cart page with glitch user
+        user = "performance_glitch_user"
+        password = "secret_sauce"
+        test_cart.test_cart(self.driver, user, password)
+
+    def test_cart_normal_cart_page(self):
+        # tests Item Added To Cart are present in cart page
+        user = "standard_user"
+        password = "secret_sauce"
+        test_cart.test_cart_page(self.driver, user, password)
+
+    def test_cart_glitch_cart_page(self):
+        # tests Item Added To Cart are present in cart page
+        user = "performance_glitch_user"
+        password = "secret_sauce"
+        test_cart.test_cart_page(self.driver, user, password)
 
     def tearDown(self):
         """Invoked method after each test"""
+        time.sleep(2)
         self.driver.close()
 
 if __name__ == "__main__":
