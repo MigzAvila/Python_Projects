@@ -1,11 +1,12 @@
 [tool.poetry]
-name = "SeleniumPractice#1"
+name = "SauceLab#1"
 version = "0.1.0"
 description = ""
 authors = ["Miguel Avila <mavila24811@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+selenium = "^4.1.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
