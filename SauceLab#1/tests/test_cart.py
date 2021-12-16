@@ -1,4 +1,35 @@
 from src.cart import Cart
+# import Driver
+from selenium import webdriver
+import pytest
+
+
+@pytest.fixture(autouse=True)
+def driver():
+    """Setup method"""
+    # Path to web Driver
+    path = "C:\Program Files (x86)\chromedriver.exe"
+    driver = webdriver.Chrome(path)
+    url = "https://www.saucedemo.com/"
+    driver.get(url)
+    return driver
+
+
+# Fixture function with module scope
+@pytest.fixture(scope="module")
+def username():
+    """Setup method for each test"""
+    username = 'standard_user'
+    return username
+
+
+# Fixture function with module scope
+@pytest.fixture(scope="module")
+def password():
+    """Setup method for each test"""
+    # Path to web Driver
+    password = "secret_sauce"
+    return password
 
 
 def test_cart(driver, username, password):

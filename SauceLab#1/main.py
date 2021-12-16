@@ -1,76 +1,72 @@
 import time
-import unittest
+import src.page as page
 
-from tests.test_login import User
+import tests.test_login as login
 import tests.test_cart as test_cart
 
-#import Driver
+# import Driver
 from selenium import webdriver
+import pytest
 
 
-class SauceLab(unittest.TestCase):
-    """Sauce Lab testing login accounts, Cart Icon Increment and Verify Item Added To Cart"""
-
-    def setUp(self):
-        """Setup method for each test"""
-        # Path to web Driver
-        self.PATH = "C:\Program Files (x86)\chromedriver.exe"
-        self.driver = webdriver.Chrome(self.PATH)
-
-        self.URL = "https://www.saucedemo.com/"
-        self.driver.get(self.URL)
-
-    def test_lock_login(self):
-        #Test lock user
-        User(self.driver).block_user()
-
-    def test_standard_login(self):
-        #Test normal user
-        User(self.driver).standard_user()
-
-    def test_glitch_login(self):
-        #Test glitch user
-        User(self.driver).glitch_user()
-
-    def test_cart_normal(self):
-        # tests Item Added To Cart are present in cart page with normal user
-        user = "standard_user"
-        password = "secret_sauce"
-        test_cart.test_cart(self.driver, user, password)
-
-    def test_cart_glitch(self):
-        # tests Item Added To Cart are present in cart page with glitch user
-        user = "performance_glitch_user"
-        password = "secret_sauce"
-        test_cart.test_cart(self.driver, user, password)
-
-    def test_cart_normal_cart_page(self):
-        # tests Item Added To Cart are present in cart page
-        user = "standard_user"
-        password = "secret_sauce"
-        test_cart.test_cart_page(self.driver, user, password)
-
-    def test_cart_glitch_cart_page(self):
-        # tests Item Added To Cart are present in cart page
-        user = "performance_glitch_user"
-        password = "secret_sauce"
-        test_cart.test_cart_page(self.driver, user, password)
-
-    def tearDown(self):
-        """Invoked method after each test"""
-        time.sleep(2)
-        self.driver.close()
-
-if __name__ == "__main__":
-    unittest.main()
+@pytest.fixture(autouse=True)
+def driver():
+    """Setup method for each test"""
+    # Path to web Driver
+    path = "C:\Program Files (x86)\chromedriver.exe"
+    driver = webdriver.Chrome(path)
+    url = "https://www.saucedemo.com/"
+    driver.get(url)
+    return driver
 
 
+def test_lock_login(driver):
+    # Test lock user
+    login.test_block_user(driver)
+    driver.quit()
 
 
+def test_standard_login(driver):
+    # Test normal user
+    login.test_standard_user(driver)
+    driver.quit()
 
 
+def test_glitch_login(driver):
+    # Test glitch user
+    login.test_glitch_user(driver)
+    driver.quit()
 
 
+def test_cart_normal(driver):
+    # tests Item Added To Cart are present in cart page with normal user
+    user = "standard_user"
+    password = "secret_sauce"
+    test_cart.test_cart(driver, user, password)
+    driver.quit()
 
+
+def test_cart_glitch(driver):
+    # tests Item Added To Cart are present in cart page with glitch user
+    user = "performance_glitch_user"
+    password = "secret_sauce"
+    test_cart.test_cart(driver, user, password)
+    driver.quit()
+
+
+def test_cart_normal_cart_page(driver):
+    # tests Item Added To Cart are present in cart page
+    user = "standard_user"
+    password = "secret_sauce"
+    test_cart.test_cart_page(driver, user, password)
+    driver.quit()
+
+
+def test_cart_glitch_cart_page(driver):
+    # tests Item Added To Cart are present in cart page
+    user = "performance_glitch_user"
+    password = "secret_sauce"
+    test_cart.test_cart_page(driver, user, password)
+    driver.quit()
 
 
