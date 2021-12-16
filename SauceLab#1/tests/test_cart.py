@@ -19,6 +19,7 @@ def driver():
 @pytest.fixture(scope="module")
 def username():
     """Setup method for each test"""
+    # Username to swag website, change as needed
     username = 'standard_user'
     return username
 
@@ -27,7 +28,7 @@ def username():
 @pytest.fixture(scope="module")
 def password():
     """Setup method for each test"""
-    # Path to web Driver
+    # Password to swag website
     password = "secret_sauce"
     return password
 

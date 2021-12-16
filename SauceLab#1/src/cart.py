@@ -6,11 +6,14 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-# Import of TimoutException
+# Import of TimeoutException
 from selenium.common.exceptions import TimeoutException
+
 
 # Class to check cart status, add products
 class Cart(object):
+    """Cart class containing increment verification and cart status (is cart empty), item present in cart page, etc. """
+
     def __init__(self, driver):
         self.driver = driver
         self.page_path = (By.XPATH, "//div[@class= 'shopping_cart_container']/a")

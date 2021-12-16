@@ -1,6 +1,3 @@
-import time
-import src.page as page
-
 import tests.test_login as login
 import tests.test_cart as test_cart
 

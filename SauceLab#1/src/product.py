@@ -6,7 +6,8 @@ from selenium.webdriver.support import expected_conditions as EC
 # Import of TimeoutException
 from selenium.common.exceptions import TimeoutException
 
-# Class
+
+# Class for product page, all function related to product page, find and add item to cart,
 class Product(object):
     def __init__(self, driver):
         self.driver = driver
@@ -18,7 +19,8 @@ class Product(object):
 
     # returns the path of the product
     def product_path(self, product):
-        return (By.XPATH, f"//div[@class='inventory_item_name'][text()='{product}']/../../../div[@class='pricebar']/button[contains(@class, 'btn_primary')]")
+        return (By.XPATH,
+                f"//div[@class='inventory_item_name'][text()='{product}']/../../../div[@class='pricebar']/button[contains(@class, 'btn_primary')]")
 
     # finds all product available and adds them to cart
     def find_product(self, products):
@@ -31,7 +33,8 @@ class Product(object):
             # Check if product is available in page
             try:
                 # finds the product
-                product_item = WebDriverWait(self.driver, 5).until(EC.presence_of_element_located(self.product_path(product)))
+                product_item = WebDriverWait(self.driver, 5).until(
+                    EC.presence_of_element_located(self.product_path(product)))
                 product_item.click()
 
                 # increments the counter as the product was added to cart and appends it to process product
